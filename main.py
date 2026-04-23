@@ -6,7 +6,8 @@ import asyncio
 async def main():
     # Paso 1: Realizar OCR en la imagen del ticket
     # texto_ocr = await ocr("images/Escáner - 2026-04-02 13_48_25.pdf")
-    texto_ocr = await ocr("images/Escáner - 2026-04-04 09_19_26.pdf")
+    # texto_ocr = await ocr("images/Escáner - 2026-04-04 09_19_26.pdf")
+    texto_ocr = await ocr("images/Escáner - 2026-04-23 11_52_21.pdf")
     # Paso 2: Enviar el texto OCR a la función de Groq para obtener el JSON estructurado
     resultado_json = await crear_json(texto_ocr)
     
