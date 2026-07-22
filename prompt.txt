@@ -94,5 +94,5 @@
 
     ENTRADA
     A continuación recibirás el texto OCR completo del ticket.
-    Devuelve ÚNICAMENTE el JSON final, sin explicaciones ni texto adicional, eliminando la ```json del principio y la ``` del final.
+    
     
