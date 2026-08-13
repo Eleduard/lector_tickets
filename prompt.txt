@@ -65,7 +65,6 @@
     "comercio_nombre": string,
     "fecha": string | null,
     "hora": string | null,
-    "medio_pago": string | null,
     "subtotal_sin_descuentos": string,
     "descuento_ticket": {
         "tipo": string | null,
