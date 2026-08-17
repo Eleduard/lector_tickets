@@ -14,24 +14,28 @@ async def crear_json(texto_ocr: str) -> dict:
 
     with open("prompt.txt", "r", encoding="utf-8") as f:
         SYSTEM_PROMPT = f.read()
-
-    respuesta = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
-        messages=[
-            {
-                "role": "system",
-                "content": SYSTEM_PROMPT
-            },
-            {
-                "role": "user",
-                "content": "Aquí está el texto del ticket: \n" + texto_ocr
-            }
-        ]
-    )
-    
-    # Extraer el contenido del mensaje de respuesta y limpiar el JSON si es necesario
-    json_response = respuesta.choices[0].message.content
-    print("Respuesta de Groq:", json_response)
+    try:
+        respuesta = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {
+                    "role": "system",
+                    "content": SYSTEM_PROMPT
+                },
+                {
+                    "role": "user",
+                    "content": "Aquí está el texto del ticket: \n" + texto_ocr
+                }
+            ]
+        )
+        # Extraer el contenido del mensaje de respuesta y limpiar el JSON si es necesario
+        json_response = respuesta.choices[0].message.content
+    except Exception as e:
+        json_response = respuesta.choices[0].message.content
+        raise Exception(f"Error al crear JSON con Groq: {str(e)}")
+        # return None
+    finally:   
+        print("Respuesta de Groq:", json_response)
 
     if isinstance(json_response, str):
         primerLlave = json_response.find('{')
@@ -48,4 +52,4 @@ async def crear_json(texto_ocr: str) -> dict:
         return data
     except json.JSONDecodeError as e:
         print("Error al decodificar JSON:", e)
-        return None
+        raise Exception(f"Error al decodificar JSON: {str(e)}")

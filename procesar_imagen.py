@@ -36,6 +36,11 @@ async def procesar_imagen(file: UploadFile) -> str:
 
         # Realizar OCR en la imagen del ticket
         texto_ocr = await ocr(tmp_path)
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error al realizar OCR: {str(e)}"
+        )
     finally:
         if tmp_path:
             import os
